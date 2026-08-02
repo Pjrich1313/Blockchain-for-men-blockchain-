@@ -103,3 +103,37 @@ In the [.github/workflows/cron.yml](/.github/workflows/cron.yml) file you can up
 ## Lastly:
 
 The Liquidator bot's relayer account needs to be stocked with ETH (to pay gas fees for transactions) and WETH to liquidate. We recommend keeping less than $100 in value on the relayer at a time in case your private key were to get compromised.
+
+---
+
+## Corporate key security setup
+
+### Goal
+
+Establish a secure task setup with a clear objective, repository context, constraints, and measurable completion checks.
+
+### Repository path
+
+`/home/runner/work/Blockchain-for-men-blockchain-/Blockchain-for-men-blockchain-`
+
+### Constraints
+
+- Do not hardcode corporate keys in code, config, or commits.
+- Store keys only in approved secret management systems (GitHub Actions secrets or an approved corporate vault).
+- Use least-privilege scopes for every key.
+- Rotate or revoke compromised and legacy keys.
+- Run secret scanning before commit/push.
+
+### Required secret handling
+
+- Use repository secrets under `Settings -> Secrets and variables -> Actions`.
+- Reference secrets only through environment variables in workflow files (for example `${{ secrets.CUSTOM_RELAYER_PRIVATE_KEY }}`).
+- Never paste private keys, API keys, or tokens into tracked files, PR comments, or workflow logs.
+
+### Success criteria
+
+- Goal statement is explicitly defined for the task.
+- Tooling and workflows reference secrets via environment variables or secret manager only.
+- No plaintext keys are present in tracked files.
+- Secret scan returns clean results before commit/push.
+- Access policy for corporate keys (owner/scope/rotation cadence) is documented in `SECURITY_KEYS_POLICY.md`.
