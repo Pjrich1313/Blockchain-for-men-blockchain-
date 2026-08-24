@@ -41,13 +41,24 @@ jobs:
         id: time
         run: echo "time=$(date +'%H-%M-%S_%Z')" >> "$GITHUB_ENV"
 
+      - name: Check environment variables
+        id: checkEnv
+        run: |
+          if [[ -z "$JSON_RPC_URL" || -z "$CUSTOM_RELAYER_PRIVATE_KEY" || -z "$CONTRACT_JSON_URL" ]]; then
+            echo "can_run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "can_run=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Run bot
         id: runBot
+        if: steps.checkEnv.outputs.can_run == 'true'
         run: |
           npm install
           npx tsx index.ts
 
       - name: Push changes (if required)
+        if: steps.checkEnv.outputs.can_run == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
