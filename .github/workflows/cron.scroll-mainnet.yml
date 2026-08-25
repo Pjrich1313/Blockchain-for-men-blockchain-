@@ -2,6 +2,7 @@ name: CronJob - Liquidator Bot - Scroll
 on:
   schedule:
     - cron: "50 * * * *" # ie. 4:50pm, 5:50pm ... etc.
+  workflow_dispatch: {}
 env:
   CHAIN_ID: 534352
   MIN_PROFIT_THRESHOLD_USD: 0.5
@@ -40,6 +41,13 @@ jobs:
       - name: Store current time
         id: time
         run: echo "time=$(date +'%H-%M-%S_%Z')" >> "$GITHUB_ENV"
+
+      - name: Debug env presence (temporary)
+        run: |
+          [ -z "$JSON_RPC_URL" ] && echo "❌ JSON_RPC_URL missing" || echo "✅ JSON_RPC_URL set"
+          [ -z "$CUSTOM_RELAYER_PRIVATE_KEY" ] && echo "❌ CUSTOM_RELAYER_PRIVATE_KEY missing" || echo "✅ CUSTOM_RELAYER_PRIVATE_KEY set"
+          [ -z "$COVALENT_API_KEY" ] && echo "❌ COVALENT_API_KEY missing" || echo "✅ COVALENT_API_KEY set"
+          [ -z "$CONTRACT_JSON_URL" ] && echo "❌ CONTRACT_JSON_URL missing" || echo "✅ CONTRACT_JSON_URL set"
 
       - name: Check environment variables
         id: checkEnv
