@@ -22,6 +22,8 @@ You can simply fork this repo, enter your own custom environment variables in yo
 
 [Watch the 1-minute video](https://www.youtube.com/watch?v=Dt-ibfZH-LU), or:
 
+To run the bot locally, copy `.envrc.example` to `.env` or `.envrc`, fill in the required values, then run `npm install` followed by `npm start`.
+
 1. [Fork this repository](#user-content-1-fork-this-repository)
 2. [Set your environment variables](#user-content-2-set-your-environment-variables)
 3. [Enable automated workflows](#user-content-3-enable-automated-workflows)

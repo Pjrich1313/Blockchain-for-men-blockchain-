@@ -1,3 +1,5 @@
+import { existsSync } from "node:fs";
+import { resolve } from "node:path";
 import { BaseProvider } from "@ethersproject/providers";
 import {
   downloadContractsBlob,
@@ -12,8 +14,22 @@ import {
   LiquidatorConfig,
   RelayerAccount,
 } from "@generationsoftware/pt-v5-autotasks-library";
+import { config as loadDotenv } from "dotenv";
+
+const loadLocalEnvFiles = () => {
+  const envFiles = [".env.local", ".env", ".envrc.local", ".envrc"];
+
+  envFiles.forEach((envFile) => {
+    const envPath = resolve(envFile);
+
+    if (existsSync(envPath)) {
+      loadDotenv({ path: envPath, override: false });
+    }
+  });
+};
 
 const main = async () => {
+  loadLocalEnvFiles();
   const envVars: LiquidatorEnvVars = loadLiquidatorEnvVars();
   const provider: BaseProvider = getProvider(envVars);
 
