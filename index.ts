@@ -28,8 +28,9 @@ const loadLocalEnvFiles = () => {
   });
 };
 
+loadLocalEnvFiles();
+
 const main = async () => {
-  loadLocalEnvFiles();
   const envVars: LiquidatorEnvVars = loadLiquidatorEnvVars();
   const provider: BaseProvider = getProvider(envVars);
 
